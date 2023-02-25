@@ -3,7 +3,7 @@ import { AppContext } from "../../../store/app-context"
 
 import TableRow from "../../../UI/TableRow/table-row"
 
-const TableList: React.FC = (props) => {
+const TableList: React.FC = () => {
   const appCtx = useContext(AppContext)
   return (
     <>

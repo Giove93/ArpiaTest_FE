@@ -14,6 +14,8 @@ type AppContextValuesObj = {
         setShowModalDetails: (val:boolean) => void,
         peopleList:Person[],
         setPeopleList: (peopleList:Person[]) => void,
+        isAscOrder:boolean,
+        setIsAscOrder: () => void,
 }
 
 export const AppContext = React.createContext<AppContextValuesObj>({
@@ -25,6 +27,8 @@ export const AppContext = React.createContext<AppContextValuesObj>({
     setPeopleList:() => {},
     showModalDetails:false,
     setShowModalDetails:() => {},
+    isAscOrder:false,
+    setIsAscOrder:() => {},
 
 })
 
@@ -33,7 +37,9 @@ const AppContextProvider: React.FC <Props>= (props)=>{
     const [showGrid, setShowGrid] = useState<boolean>(true)
     const [showDialogDelete, setShowDialogDelete] = useState<boolean>(false)
     const [showModalDetails, setShowModalDetails] = useState<boolean>(false)
-    const [peopleList, setPepleList] = useState<Person[]>([])
+    const [isAscOrder, setIsAscOrder] = useState(false)
+    const [peopleList, setPoepleList] = useState<Person[]>([])
+
 
     function showGridHandler(){
         setShowGrid(!showGrid)
@@ -48,7 +54,12 @@ const AppContextProvider: React.FC <Props>= (props)=>{
     }
 
     function setPeopleListHandler(people:Person[]){
-        setPepleList(people)
+        setPoepleList(people)
+        console.log(peopleList)
+    }
+
+    function setIsAscOrderHandler(){
+        setIsAscOrder(!isAscOrder)
     }
 
     const contextValue:AppContextValuesObj = {
@@ -59,7 +70,9 @@ const AppContextProvider: React.FC <Props>= (props)=>{
         peopleList:peopleList,
         setPeopleList: setPeopleListHandler,
         showModalDetails: showModalDetails,
-        setShowModalDetails: setshowModalDetailsHandler
+        setShowModalDetails: setshowModalDetailsHandler,
+        isAscOrder:isAscOrder,
+        setIsAscOrder:setIsAscOrderHandler
     }
     return <AppContext.Provider value={contextValue}>
         {props.children}

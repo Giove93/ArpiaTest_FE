@@ -1,46 +1,31 @@
 import TableList from './Components/Table-List'
 import ThumbinalList from './Components/Thumbinals-List'
 import useHttp from '../../Hooks/use-http'
-import { useCallback, useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Person } from '../../DataModel/Person'
 import { AppContext } from '../../store/app-context'
-import ModalDetail from '../../UI/Modal-Detail/modal-detail'
-import { ListBulletIcon } from '@heroicons/react/20/solid'
+import React from 'react'
 
 const Content: React.FC = () => {
-    const urlPeopleList = "https://jsonplaceholder.typicode.com/users"
-    const [isLoadingPeople, errorPeopleReq, sendPeopleReq] = useHttp(urlPeopleList, populatePeopleList)
-    const [isAscOrder, setIsAscOrder] = useState(false)
 
     const appCtx = useContext(AppContext)
 
-    useEffect(() => {
-        sendPeopleReq();
-    }, [])
-
-    function populatePeopleList(data: Person[]) {
-        if (data && data.length > 0) {
-            data.forEach(person => {
-                person.imageUrl = `https://avatars.dicebear.com/v2/avataaars/${person.username}.svg?options[mood][]=happy`
-            });
-            appCtx.setPeopleList(data)
-        }
-    }
+   
 
     const sortListHandler = () => {
-        if(!isAscOrder){
+        if(!appCtx.isAscOrder){
             const strAscending = [...appCtx.peopleList].sort((a, b) =>
-                a.username > b.username ? 1 : -1,
+                a.username.toLowerCase() > b.username.toLowerCase() ? 1 : -1,
             );
             appCtx.setPeopleList(strAscending)
-            setIsAscOrder(!isAscOrder)
+            appCtx.setIsAscOrder()
         }
         else{
             const strAscending = [...appCtx.peopleList].sort((a, b) =>
-                a.username > b.username ? -1 : 1,
+                a.username.toLowerCase() > b.username.toLowerCase() ? -1 : 1,
             );
             appCtx.setPeopleList(strAscending)
-            setIsAscOrder(!isAscOrder)
+            appCtx.setIsAscOrder()
         }
        
     }
@@ -56,7 +41,7 @@ const Content: React.FC = () => {
           </h2>
         </div>
         <div className="mt-4 flex flex-shrink-0 md:mt-0 md:ml-4">
-       { !isAscOrder &&  <button
+       { !appCtx.isAscOrder &&  <button
             onClick={sortListHandler}
             type="button"
             className="ml-3 inline-flex items-center rounded-md border border-transparent bg-indigo-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-800"
@@ -64,7 +49,7 @@ const Content: React.FC = () => {
             Sort user by username from A-Z
           </button>}
 
-          { isAscOrder &&  <button
+          { appCtx.isAscOrder &&  <button
             onClick={sortListHandler}
             type="button"
             className="ml-3 inline-flex items-center rounded-md border border-transparent bg-indigo-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-800"
@@ -85,4 +70,4 @@ const Content: React.FC = () => {
     )
 }
 
-export default Content
+export default React.memo(Content) 

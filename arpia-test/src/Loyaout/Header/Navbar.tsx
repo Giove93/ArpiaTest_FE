@@ -2,8 +2,6 @@ import { useContext, useEffect, useState } from 'react'
 import { Disclosure } from '@headlessui/react'
 import { ListBulletIcon, UserCircleIcon, ArrowPathIcon} from '@heroicons/react/20/solid'
 import { AppContext } from '../../store/app-context'
-import { Person } from '../../DataModel/Person'
-
 const Navbar: React.FC = () => {
 
     const appCtx = useContext(AppContext)
