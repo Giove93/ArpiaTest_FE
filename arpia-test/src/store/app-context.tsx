@@ -55,7 +55,6 @@ const AppContextProvider: React.FC <Props>= (props)=>{
 
     function setPeopleListHandler(people:Person[]){
         setPoepleList(people)
-        console.log(peopleList)
     }
 
     function setIsAscOrderHandler(){

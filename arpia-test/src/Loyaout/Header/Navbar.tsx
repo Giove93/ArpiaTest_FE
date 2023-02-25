@@ -1,13 +1,13 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext} from 'react'
 import { Disclosure } from '@headlessui/react'
-import { ListBulletIcon, UserCircleIcon, ArrowPathIcon} from '@heroicons/react/20/solid'
+import { ListBulletIcon, UserCircleIcon } from '@heroicons/react/20/solid'
 import { AppContext } from '../../store/app-context'
 const Navbar: React.FC = () => {
 
     const appCtx = useContext(AppContext)
 
-    const showGridHandler= (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-       appCtx.setShowGrid()
+    const showGridHandler = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        appCtx.setShowGrid()
     }
 
     return (
@@ -24,8 +24,8 @@ const Navbar: React.FC = () => {
                                 </div>
                             </div>
                             <div className="flex items-center">
-                           
-                              {!appCtx.showGrid && <div className="flex-shrink-0">
+
+                                {!appCtx.showGrid && <div className="flex-shrink-0">
                                     <button
                                         onClick={showGridHandler}
                                         type="button"
@@ -35,10 +35,10 @@ const Navbar: React.FC = () => {
                                         <span>Show As Grid</span>
                                     </button>
                                 </div>}
-                                
-                                {appCtx.showGrid && <div className="hidden md:ml-4 md:flex md:flex-shrink-0 md:items-center">
+
+                                {appCtx.showGrid && <div className="flex-shrink-0">
                                     <button
-                                    onClick={showGridHandler}
+                                        onClick={showGridHandler}
                                         type="button"
                                         className="relative inline-flex items-center rounded-md border border-transparent bg-indigo-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-800"
                                     >
